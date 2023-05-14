@@ -9,18 +9,19 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1 class="has1">Tic Tac Toe</h1>
-    <div id="gameboard">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-      <div id="message"></div>
+    <h1>Tic Tac Toe</h1>
+    <div id="gameboard"></div>  
+        <div class="form-popup" id="myForm">
+            <form class="form-container" action="">
+                <p class="form-intro form-hide">Choose Players Names</p>
+                <label for="title" class="form-hide" >Player 1</label>
+                <input type="text" id="title" name="title" class="form-hide" required>
+                <label for="author" class="form-hide">Player 2</label>
+                <input type="text" id="author" name="author" class="form-hide" required>
+                <button type="submit" class="btn submit-button">New Game</button>
+                <button type="button" class="btn close-button" >Restart Game</button>
+            </form>
+        </div>
+    <div id="message"></div>
 </body>
 </html>

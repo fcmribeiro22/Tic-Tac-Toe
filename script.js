@@ -2,17 +2,28 @@ const Gameboard = (() => {
   let board = ['', '', '', '', '', '', '', '', ''];
 
   const renderBoard = () => {
+    let boardLength= board.length;
+    let tempDiv;
+    for (i=0; i < boardLength; i++){
+      tempDiv =document.createElement ('div');
+      tempDiv.className ='cell';
+      tempDiv.innerHTML =board[i];
+      document.getElementById('gameboard').appendChild(tempDiv);
+      console.log(boardLength);
+    }
+  }
 
-
-    
     const resetBoard = () => {
       board = ['', '', '', '', '', '', '', '', ''];
     };
-  };
+  
   return {
-    getBoard, resetBoard,
+    resetBoard, 
+    renderBoard,
   };
 })();
+
+
 
 const Player = (name, symbol) => {
   const getName = () => name;
@@ -24,13 +35,6 @@ const Player = (name, symbol) => {
   };
 };
 
-/* var arrayVariable = ["one", "two", "three"];
-var arrayLength = arrayVariable.length;
-var temp;
 
-for (i = 0; i < arrayLength; i++) {
-  temp = document.createElement('div');
-  temp.className = 'results';
-  temp.innerHTML = arrayVariable[i];
-  document.getElementsByTagName('body')[0].appendChild(temp);
-} */
+
+Gameboard.renderBoard();
