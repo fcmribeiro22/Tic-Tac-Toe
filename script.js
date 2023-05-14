@@ -1,32 +1,36 @@
-// MODULE GAMEBOARD
-//
-//
-
 const Gameboard = (() => {
   let board = ['', '', '', '', '', '', '', '', ''];
 
-  const getBoard = () => board;
-  const updateBoard = (index, marker) => {
-    if (board[index] === '') {
-      board[index] = marker;
-      return true;
-    }
-    return false;
-  };
-  const resetBoard = () => {
-    board = ['', '', '', '', '', '', '', '', ''];
-  };
+  const renderBoard = () => {
 
+
+    
+    const resetBoard = () => {
+      board = ['', '', '', '', '', '', '', '', ''];
+    };
+  };
   return {
-    getBoard, updateBoard, resetBoard, board,
+    getBoard, resetBoard,
   };
 })();
 
-// FACTORY PLAYER
-
-const Player = (name, marker) => {
+const Player = (name, symbol) => {
   const getName = () => name;
-  const getMarker = () => marker;
+  const getSymbol = () => symbol;
 
-  return { getName, getMarker };
+  return {
+    getName,
+    getSymbol,
+  };
 };
+
+/* var arrayVariable = ["one", "two", "three"];
+var arrayLength = arrayVariable.length;
+var temp;
+
+for (i = 0; i < arrayLength; i++) {
+  temp = document.createElement('div');
+  temp.className = 'results';
+  temp.innerHTML = arrayVariable[i];
+  document.getElementsByTagName('body')[0].appendChild(temp);
+} */
