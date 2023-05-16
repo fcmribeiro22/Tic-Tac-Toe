@@ -23,7 +23,7 @@ const Gameboard = (() => {
       for (let i=0 ; i < playedCell.length ; i++){
         playedCell[i].addEventListener('click', () =>{
           if (playedCell[i].innerHTML === ""){
-            playedCell[i].innerHTML = Player2.getMarker();
+            playedCell[i].innerHTML =  "X";
             
           } 
           
@@ -40,7 +40,7 @@ const Gameboard = (() => {
 
 
 
-const Player = (name, marker) => {
+const createPlayer = (name, marker) => {
   const getName = () => name;
   const getMarker = () => marker;
 
@@ -50,8 +50,7 @@ const Player = (name, marker) => {
   };
 };
 
-const Player1 = Player('Adam', 'X')
-const Player2= Player('Sandler', 'O')
+
 
 Gameboard.renderBoard();
 
