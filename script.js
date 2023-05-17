@@ -2,56 +2,83 @@ const Gameboard = (() => {
   let board = ['', '', '', '', '', '', '', '', ''];
 
   const renderBoard = () => {
+    document.getElementById('gameboard').innerHTML="";
     let boardCell;
     for (let i=0; i < board.length; i++){
       boardCell =document.createElement ('div');
       boardCell.className ='cell';
       boardCell.innerHTML =board[i];
       document.getElementById('gameboard').appendChild(boardCell);
-      console.log(board.length);
+      
     }
+    
   }
-
-    const resetBoard = () => {
-      board = ['', '', '', '', '', '', '', '', ''];
-      renderBoard()
-    };
 
     const updateBoard = () => {
       let playedCell = document.querySelectorAll('.cell');
-      console.log(playedCell);
-      for (let i=0 ; i < playedCell.length ; i++){
-        playedCell[i].addEventListener('click', () =>{
-          if (playedCell[i].innerHTML === ""){
-            playedCell[i].innerHTML =  "X";
-            
-          } 
-          
-        })
+      console.log(board);
+      for (let i = 0; i < playedCell.length; i++) {
+        playedCell[i].addEventListener('click', () => {
+          if (playedCell[i].innerHTML === "") {
+            playedCell[i].innerHTML = "X";
+            board[i] = playedCell[i].innerHTML;
+            console.log(board);
+            console.log(playedCell[i].innerHTML);
+          }else {
+            return;
+          }
+        });
       }
     };
+
+    const getBoard =() => board;
   
   return {
-    resetBoard, 
+   
     renderBoard,
-    updateBoard
+    updateBoard,
+    getBoard
   };
 })();
 
 
 
-const createPlayer = (name, marker) => {
-  const getName = () => name;
-  const getMarker = () => marker;
 
+
+const createPlayer = (name, marker) => {
   return {
-    getName,
-    getMarker,
+    name, 
+    marker
   };
 };
 
 
 
-Gameboard.renderBoard();
 
-Gameboard.updateBoard();
+
+const Game =(() =>{
+  const startGame = () =>{
+    
+    let playerOne= createPlayer(document.querySelector('#player1').value, "X")
+    let playerTwo= createPlayer(document.querySelector('#player2').value, "O")
+
+
+    Gameboard.renderBoard();
+    Gameboard.updateBoard();
+    Gameboard.getBoard();
+    console.log(playerOne,playerTwo)
+  }
+
+    return{
+      startGame,
+    }
+})();
+
+
+
+
+
+const startButton = document.querySelector('.start-button');
+startButton.addEventListener('click', ()=>{
+  Game.startGame();
+})
