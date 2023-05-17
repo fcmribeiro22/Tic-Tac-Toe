@@ -1,7 +1,7 @@
 const Gameboard = (() => {
-  let board = ['', '', '', '', '', '', '', '', ''];
+    let board = ['', '', '', '', '', '', '', '', ''];
 
-  const renderBoard = () => {
+    const renderBoard = () => {
     document.getElementById('gameboard').innerHTML="";
     let boardCell;
     for (let i=0; i < board.length; i++){
@@ -9,12 +9,8 @@ const Gameboard = (() => {
       boardCell.className ='cell';
       boardCell.innerHTML =board[i];
       document.getElementById('gameboard').appendChild(boardCell);
-      
-    }
-    
-  }
+      }
 
-    const updateBoard = () => {
       let playedCell = document.querySelectorAll('.cell');
       console.log(board);
       for (let i = 0; i < playedCell.length; i++) {
@@ -28,17 +24,18 @@ const Gameboard = (() => {
             return;
           }
         });
-      }
-    };
+    
+  }}
 
-    const getBoard =() => board;
-  
-  return {
-   
-    renderBoard,
-    updateBoard,
+      const getBoard= () =>board;
+
+
+  return{
+
+    renderBoard, 
     getBoard
-  };
+
+  }
 })();
 
 
@@ -46,10 +43,12 @@ const Gameboard = (() => {
 
 
 const createPlayer = (name, marker) => {
+
   return {
     name, 
     marker
   };
+
 };
 
 
@@ -61,17 +60,19 @@ const Game =(() =>{
     
     let playerOne= createPlayer(document.querySelector('#player1').value, "X")
     let playerTwo= createPlayer(document.querySelector('#player2').value, "O")
-
+    let currentPlayer= playerOne;
+    let gameOver= false;
 
     Gameboard.renderBoard();
-    Gameboard.updateBoard();
-    Gameboard.getBoard();
+    
     console.log(playerOne,playerTwo)
   }
 
+
     return{
-      startGame,
+    startGame,
     }
+
 })();
 
 
