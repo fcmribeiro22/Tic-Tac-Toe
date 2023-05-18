@@ -1,68 +1,62 @@
 const Gameboard = (() => {
-    let board = ['', '', '', '', '', '', '', '', ''];
+  let board = ['', '', '', '', '', '', '', '', ''];
 
-    const renderBoard = () => {
-    document.getElementById('gameboard').innerHTML="";
+  const renderBoard = () => {
+    document.getElementById('gameboard').innerHTML = '';
     let boardCell;
-    for (let i=0; i < board.length; i++){
-      boardCell =document.createElement ('div');
-      boardCell.className ='cell';
-      boardCell.innerHTML =board[i];
+    for (let i = 0; i < board.length; i++) {
+      boardCell = document.createElement('div');
+      boardCell.className = 'cell';
+      boardCell.innerHTML = board[i];
       document.getElementById('gameboard').appendChild(boardCell);
-      }
+    }
 
-      let playedCell = document.querySelectorAll('.cell');
-      for (let i = 0; i < playedCell.length; i++) {
-        playedCell[i].addEventListener('click', (event) => {
-         Game.updateBoard(event);
-        });
-    
-  }}
-
-      const getBoard= () =>board;
-
-
-  return{
-
-    renderBoard, 
-    getBoard
-
-  }
-})();
-
-
-
-
-
-const Player = (name, marker) => {
-  
-  return {
-    name, 
-    marker
+    const playedCell = document.querySelectorAll('.cell');
+    for (let i = 0; i < playedCell.length; i++) {
+      playedCell[i].addEventListener('click', (event) => {
+        Game.updateBoard(event);
+      });
+    }
   };
 
-};
+  const getBoard = () => board;
 
+  const resetBoard = () => {
+    board = ['', '', '', '', '', '', '', '', ''];
+    document.getElementById('message').innerHTML= "";
 
+    renderBoard();
+    console.log(board);
+  };
 
+  return {
 
+    renderBoard,
+    getBoard,
+    resetBoard,
 
-const Game =(() =>{
-    let playerOne;
-    let playerTwo;
-    let currentPlayer;
-    let gameOver= false;
+  };
+})();
 
+const Player = (name, marker) => ({
+  name,
+  marker,
+});
 
-  const startGame = () =>{  
-    playerOne= Player(document.querySelector('#player1').value, "X")
-    playerTwo= Player(document.querySelector('#player2').value, "O")
-    currentPlayer= playerOne;
+const Game = (() => {
+  let playerOne;
+  let playerTwo;
+  let currentPlayer;
+ 
+
+  const startGame = () => {
+    playerOne = Player(document.querySelector('#player1').value, 'X');
+    playerTwo = Player(document.querySelector('#player2').value, 'O');
+    currentPlayer = playerOne;
     Gameboard.renderBoard();
-    console.log(playerOne,playerTwo)
-    
-   
-  }
+    console.log(playerOne, playerTwo);
+    startButtonHandler();
+  };
 
   const switchPlayer = () => {
     currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
@@ -70,43 +64,81 @@ const Game =(() =>{
 
   const updateBoard = (event) => {
     const clickedCell = event.target;
-    if (clickedCell.innerHTML === "") {
+    if (clickedCell.innerHTML === '') {
       clickedCell.innerHTML = currentPlayer.marker;
-      let board = Gameboard.getBoard();
-      let playedCells = document.querySelectorAll('.cell');
+      const board = Gameboard.getBoard();
+      const playedCells = document.querySelectorAll('.cell');
       for (let i = 0; i < playedCells.length; i++) {
         if (playedCells[i] === clickedCell) {
           board[i] = clickedCell.innerHTML;
-          
         }
-       
       }
-      
-      console.log(board);
-      console.log(clickedCell.innerHTML);
-      
     } else {
       return;
     }
-    switchPlayer()
+
+    checkWin();
+    checkDraw();
+    switchPlayer();
   };
 
+  const winStatement = () => {
+    document.getElementById('message').innerHTML= `It's over! ${currentPlayer.name} wins` 
+  
+  };
 
-    return{
-    startGame,
-    updateBoard
+  const checkWin = () => {
+    const board = Gameboard.getBoard();
+    console.log(board);
+    if (board[0] === board[1] && board[1] === board[2] && board[1] !=="") {
+      winStatement();
+      Gameboard.renderBoard();
+
+      
     }
+  };
+
+  
 
 
+  const checkDraw = () => {
+    const board = Gameboard.getBoard();
+    let isDraw = true;
+  
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === "") {
+        isDraw = false;
+        break;
+      }
+    }
+  
+    if (isDraw) {
+      document.getElementById('message').innerHTML= "It's a draw!!";
+    }
+  };
 
+  return {
+    startGame,
+    updateBoard,
     
+  };
 })();
 
-
+const startButtonHandler = () => {
+  const formHidden = document.querySelector('.form-names');
+  const buttonHidden = document.querySelector('.start-button');
+  formHidden.style.display = 'none';
+  buttonHidden.style.display = 'none';
+};
 
 
 
 const startButton = document.querySelector('.start-button');
-startButton.addEventListener('click', ()=>{
+startButton.addEventListener('click', () => {
   Game.startGame();
-})
+});
+
+const resetButton = document.querySelector('.restart-button');
+resetButton.addEventListener('click', () => {
+  Gameboard.resetBoard();
+});
