@@ -92,10 +92,21 @@ const Game = (() => {
     console.log(board);
     if (board[0] === board[1] && board[1] === board[2] && board[1] !=="") {
       winStatement();
-      Gameboard.renderBoard();
-
-      
-    }
+    } else if (board[3] === board[4] && board[4] === board[5] && board[4] !=="") {
+      winStatement();
+    } else if (board[6] === board[7] && board[7] === board[8] && board[7] !=="") {
+      winStatement();
+    } else if (board[0] === board[4] && board[4] === board[8] && board[4] !=="") {
+      winStatement();
+    } else if (board[6] === board[4] && board[4] === board[2] && board[4] !=="") {
+      winStatement();
+    } else if (board[0] === board[3] && board[3] === board[6] && board[3] !=="") {
+      winStatement();
+    } else if (board[1] === board[4] && board[4] === board[7] && board[4] !=="") {
+      winStatement();
+    } else if (board[2] === board[5] && board[5] === board[8] && board[5] !=="") {
+      winStatement();
+    } 
   };
 
   
