@@ -12,17 +12,9 @@ const Gameboard = (() => {
       }
 
       let playedCell = document.querySelectorAll('.cell');
-      console.log(board);
       for (let i = 0; i < playedCell.length; i++) {
-        playedCell[i].addEventListener('click', () => {
-          if (playedCell[i].innerHTML === "") {
-            playedCell[i].innerHTML = "X";
-            board[i] = playedCell[i].innerHTML;
-            console.log(board);
-            console.log(playedCell[i].innerHTML);
-          }else {
-            return;
-          }
+        playedCell[i].addEventListener('click', (event) => {
+         Game.updateBoard(event);
         });
     
   }}
@@ -42,8 +34,8 @@ const Gameboard = (() => {
 
 
 
-const createPlayer = (name, marker) => {
-
+const Player = (name, marker) => {
+  
   return {
     name, 
     marker
@@ -56,23 +48,58 @@ const createPlayer = (name, marker) => {
 
 
 const Game =(() =>{
-  const startGame = () =>{
-    
-    let playerOne= createPlayer(document.querySelector('#player1').value, "X")
-    let playerTwo= createPlayer(document.querySelector('#player2').value, "O")
-    let currentPlayer= playerOne;
+    let playerOne;
+    let playerTwo;
+    let currentPlayer;
     let gameOver= false;
 
+
+  const startGame = () =>{  
+    playerOne= Player(document.querySelector('#player1').value, "X")
+    playerTwo= Player(document.querySelector('#player2').value, "O")
+    currentPlayer= playerOne;
     Gameboard.renderBoard();
-    
     console.log(playerOne,playerTwo)
+    
+   
   }
+
+  const switchPlayer = () => {
+    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+  };
+
+  const updateBoard = (event) => {
+    const clickedCell = event.target;
+    if (clickedCell.innerHTML === "") {
+      clickedCell.innerHTML = currentPlayer.marker;
+      let board = Gameboard.getBoard();
+      let playedCells = document.querySelectorAll('.cell');
+      for (let i = 0; i < playedCells.length; i++) {
+        if (playedCells[i] === clickedCell) {
+          board[i] = clickedCell.innerHTML;
+          
+        }
+       
+      }
+      
+      console.log(board);
+      console.log(clickedCell.innerHTML);
+      
+    } else {
+      return;
+    }
+    switchPlayer()
+  };
 
 
     return{
     startGame,
+    updateBoard
     }
 
+
+
+    
 })();
 
 
