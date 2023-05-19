@@ -14,7 +14,9 @@ const Gameboard = (() => {
     const playedCell = document.querySelectorAll('.cell');
     for (let i = 0; i < playedCell.length; i++) {
       playedCell[i].addEventListener('click', (event) => {
-        Game.updateBoard(event);
+   
+          Game.updateBoard(event);
+        
       });
     }
   };
@@ -47,7 +49,7 @@ const Game = (() => {
   let playerOne;
   let playerTwo;
   let currentPlayer;
- 
+  let gameOver= false;
 
   const startGame = () => {
     playerOne = Player(document.querySelector('#player1').value, 'X');
@@ -63,28 +65,31 @@ const Game = (() => {
   };
 
   const updateBoard = (event) => {
-    const clickedCell = event.target;
-    if (clickedCell.innerHTML === '') {
-      clickedCell.innerHTML = currentPlayer.marker;
-      const board = Gameboard.getBoard();
-      const playedCells = document.querySelectorAll('.cell');
-      for (let i = 0; i < playedCells.length; i++) {
-        if (playedCells[i] === clickedCell) {
-          board[i] = clickedCell.innerHTML;
+    if (gameOver=== false){
+      
+      const clickedCell = event.target;
+      if (clickedCell.innerHTML === '') {
+        clickedCell.innerHTML = currentPlayer.marker;
+        const board = Gameboard.getBoard();
+        const playedCells = document.querySelectorAll('.cell');
+        for (let i = 0; i < playedCells.length; i++) {
+          if (playedCells[i] === clickedCell) {
+            board[i] = clickedCell.innerHTML;
+          }
         }
+      } else {
+        return;
       }
-    } else {
-      return;
     }
 
-    checkWin();
     checkDraw();
+    checkWin();
     switchPlayer();
   };
 
   const winStatement = () => {
     document.getElementById('message').innerHTML= `It's over! ${currentPlayer.name} wins` 
-  
+    gameOver=true;
   };
 
   const checkWin = () => {
