@@ -25,10 +25,11 @@ const Gameboard = (() => {
 
   const resetBoard = () => {
     board = ['', '', '', '', '', '', '', '', ''];
+    
     document.getElementById('message').innerHTML= "";
-
+    Game.restartGameOver();
     renderBoard();
-    console.log(board);
+   
   };
 
   return {
@@ -61,16 +62,19 @@ const Game = (() => {
   };
 
   const switchPlayer = () => {
+    if (gameOver=== false){
     currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+    console.log(gameOver);}
   };
 
   const updateBoard = (event) => {
+    const board = Gameboard.getBoard();
     if (gameOver=== false){
       
       const clickedCell = event.target;
       if (clickedCell.innerHTML === '') {
         clickedCell.innerHTML = currentPlayer.marker;
-        const board = Gameboard.getBoard();
+        
         const playedCells = document.querySelectorAll('.cell');
         for (let i = 0; i < playedCells.length; i++) {
           if (playedCells[i] === clickedCell) {
@@ -85,6 +89,7 @@ const Game = (() => {
     checkDraw();
     checkWin();
     switchPlayer();
+    
   };
 
   const winStatement = () => {
@@ -114,6 +119,10 @@ const Game = (() => {
     } 
   };
 
+  const restartGameOver =() =>{
+    gameOver=false;
+  };
+
   
 
 
@@ -133,9 +142,13 @@ const Game = (() => {
     }
   };
 
+  
+
   return {
     startGame,
     updateBoard,
+    restartGameOver,
+
     
   };
 })();
@@ -158,3 +171,5 @@ const resetButton = document.querySelector('.restart-button');
 resetButton.addEventListener('click', () => {
   Gameboard.resetBoard();
 });
+
+
