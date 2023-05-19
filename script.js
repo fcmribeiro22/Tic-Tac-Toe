@@ -51,6 +51,7 @@ const Game = (() => {
   let playerTwo;
   let currentPlayer;
   let gameOver= false;
+  
 
   const startGame = () => {
     playerOne = Player(document.querySelector('#player1').value, 'X');
@@ -158,6 +159,8 @@ const startButtonHandler = () => {
   const buttonHidden = document.querySelector('.start-button');
   formHidden.style.display = 'none';
   buttonHidden.style.display = 'none';
+  const newGameButton = document.querySelector('.new-game-button');
+  newGameButton.style.display= 'flex';
 };
 
 
@@ -165,11 +168,17 @@ const startButtonHandler = () => {
 const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', () => {
   Game.startGame();
+  document.querySelector('.restart-button').style.display= 'flex';
 });
 
 const resetButton = document.querySelector('.restart-button');
 resetButton.addEventListener('click', () => {
   Gameboard.resetBoard();
 });
+
+const newGameButton = document.querySelector('.new-game-button');
+newGameButton.addEventListener('click',() =>{
+window.location.reload();
+} );
 
 

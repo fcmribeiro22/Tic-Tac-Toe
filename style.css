@@ -61,6 +61,14 @@
 
 .form-container .restart-button {
   background-color: #be2a10;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container .new-game-button {
+  background-color:#04AA6D;
+  display: none;
 }
 
 /* Add some hover effects to buttons */
